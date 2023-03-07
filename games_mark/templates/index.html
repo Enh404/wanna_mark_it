@@ -1,0 +1,28 @@
+<!-- templates/posts/index.html -->
+<!DOCTYPE html> 
+<html lang="ru">
+  <head>
+  </head>
+  <body>
+    <h1>Лента оценок</h1>
+    {% for gamemark in gamemark_list %}
+    <article>
+      <ul>
+        <li>
+            Автор: {{ gamemark.user }}
+        </li>
+        <li>
+            Дата публикации: {{ gamemark.pub_date|date:"d E Y" }}
+        </li>
+        <li>
+            Игра: {{ gamemark.game }}
+        </li>
+      </ul>
+        <p>{{ gamemark.comment }}</p>
+        <p>
+            <b>Оценка: {{ gamemark.mark }}</b>
+        </p>
+    </article>
+    {% endfor %}    
+  </body>
+</html> 
