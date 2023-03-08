@@ -1,10 +1,9 @@
-<!-- templates/posts/index.html -->
 <!DOCTYPE html> 
 <html lang="ru">
   <head>
   </head>
   <body>
-    <h1>Лента оценок</h1>
+    <h1>Оценка игр категории {{category.slug}}</h1>
     {% for gamemark in gamemark_list %}
     <article>
       <ul>
@@ -16,9 +15,6 @@
         </li>
         <li>
             Игра: {{ gamemark.game }}
-        </li>
-        <li>
-          Категории: <a href="{% url 'games:category_gamemark' gamemark.game.category %}">{{ gamemark.game.category }}</a>
         </li>
       </ul>
         <p>{{ gamemark.comment }}</p>

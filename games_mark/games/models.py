@@ -16,13 +16,13 @@ class Category(models.Model):
 
 class Game(models.Model):
     name = models.CharField(max_length=200)
-    category = models.ManyToManyField(
+    category = models.ForeignKey(
         Category,
+        on_delete=models.SET_NULL,
+        null=True,
         related_name='games',
     )
     year = models.PositiveSmallIntegerField(
-        blank=True,
-        null=True,
         # validators=[year_validator, ]
     )
 
@@ -33,7 +33,7 @@ class GameMark(models.Model):
     comment = models.TextField()
     game = models.ForeignKey(
         Game, 
-        on_delete=models.CASCADE, 
+        on_delete=models.CASCADE,
         related_name='gamemarks'
     )
     user = models.ForeignKey(
@@ -43,6 +43,9 @@ class GameMark(models.Model):
     )
     pub_date = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True)
+    
+    class Meta:
+        ordering = ['-pub_date']
     
     def __str__(self):
         return f'{self.game.name}, {self.mark}'
