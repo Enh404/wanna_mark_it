@@ -1,9 +1,8 @@
-<!DOCTYPE html> 
-<html lang="ru">
-  <head>
-  </head>
-  <body>
-    <h1>Оценка игр категории {{category.slug}}</h1>
+{% extends 'base.html' %}
+
+
+{% block title %}Лента оценок{% endblock title %}
+  {% block content %}
     {% for gamemark in gamemark_list %}
     <article>
       <ul>
@@ -16,6 +15,9 @@
         <li>
             Игра: {{ gamemark.game }}
         </li>
+        <li>
+          Категории: <a href="{% url 'games:category_gamemark' gamemark.game.category %}">{{ gamemark.game.category }}</a>
+        </li>
       </ul>
         <p>{{ gamemark.comment }}</p>
         <p>
@@ -23,6 +25,6 @@
         </p>
       {% if not forloop.lust %}<hr>{% endif %}
     </article>
-    {% endfor %}    
-  </body>
-</html> 
+    {% endfor %}
+  {% endblock content %}
+

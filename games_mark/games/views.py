@@ -8,7 +8,7 @@ def index(request):
     context = {
         'gamemark_list': gamemark_list,
     }
-    return render(request, 'index.html', context)
+    return render(request, 'games/index.html', context)
 
 
 def category_gamemark(request, slug):
@@ -18,4 +18,4 @@ def category_gamemark(request, slug):
         'category': category,
         'gamemark_list': gamemark_list,
     }
-    return render(request, 'category_gamemark.html', context)
+    return render(request, 'games/category_gamemark.html', context)
