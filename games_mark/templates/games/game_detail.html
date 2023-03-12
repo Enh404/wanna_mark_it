@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% comment %} {% load thumbnail %} {% endcomment %}
+{% load user_filters %}
+
+{% block title %}Пост {{ post|truncatechars:30 }}{% endblock title %}
+
+{% block content %}
+  
+      <div class="row">
+        <aside class="col-12 col-md-3">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              Название: {{ game.name }} 
+            </li>
+            <li class="list-group-item">
+              Год выпуска: {{ game.year }}
+            </li>
+            <li class="list-group-item">
+              Категория: <a href="{% url 'games:category_gamemark' game.category %}">{{ game.category }}</a>
+            </li>
+            <li class="list-group-item">
+              Средняя оценка: {{ gamemarks_by_game }}
+            </li>
+            {% comment %} <li class="list-group-item">
+              <a href="{% url 'posts:profile' post.author.username %}">
+                все посты пользователя
+              </a>
+            </li> {% endcomment %}
+          </ul>
+        </aside>
+      </div>
+  
+{% endblock content %}

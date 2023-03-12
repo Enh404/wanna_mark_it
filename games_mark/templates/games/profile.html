@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Профайл пользователя {{ user }}{% endblock title %}
+
+{% block content %}
+  
+        <h1>Все посты пользователя {{ user }}</h1>
+        <h3>Всего постов: {{ gamemarks_by_user.count }} </h3>
+    {% for gamemark in gamemarks_by_user %}
+        <article>
+          <ul>
+            <li>
+              Автор: {{ user }}
+            </li>
+            <li>
+              Дата публикации: {{ gamemark.pub_date|date:"d E Y" }} 
+            </li>
+            <li>
+              Игра: <a href="{% url 'games:game_detail' gamemark.game.id %}">{{ gamemark.game }}</a>
+            </li>
+            <li>
+              Категория: <a href="{% url 'games:category_gamemark' gamemark.game.category %}">{{ gamemark.game.category }}</a>
+            </li>
+          </ul>
+          <p>
+            {{ gamemark.comment }}
+          </p>
+          <p>
+            <b>Оценка: {{ gamemark.mark }}</b>
+          </p>
+          {% comment %} {% if post %}
+            <a href="{% url 'posts:post_detail' post.id %}">подробная информация </a>
+          {% endif %} {% endcomment %}
+        </article>       
+        {% comment %} {% if post.group %}
+          <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+        {% endif %} {% endcomment %}
+        {% if not forloop.lust %}<hr>{% endif %}
+  {% endfor %}  
+  {% comment %} {% include 'posts/includes/paginator.html' %} {% endcomment %}
+{% endblock content %}

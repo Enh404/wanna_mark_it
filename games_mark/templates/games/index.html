@@ -7,16 +7,17 @@
     <article>
       <ul>
         <li>
-            Автор: {{ gamemark.user }}
+            Автор: 
+            <a href="{% url 'games:profile' gamemark.user.username %}">{{ gamemark.user }}</a>
         </li>
         <li>
             Дата публикации: {{ gamemark.pub_date|date:"d E Y" }}
         </li>
         <li>
-            Игра: {{ gamemark.game }}
+            Игра: <a href="{% url 'games:game_detail' gamemark.game.id %}">{{ gamemark.game }}</a>
         </li>
         <li>
-          Категории: <a href="{% url 'games:category_gamemark' gamemark.game.category %}">{{ gamemark.game.category }}</a>
+          Категория: <a href="{% url 'games:category_gamemark' gamemark.game.category %}">{{ gamemark.game.category }}</a>
         </li>
       </ul>
         <p>{{ gamemark.comment }}</p>

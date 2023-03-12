@@ -13,7 +13,7 @@
             Дата публикации: {{ gamemark.pub_date|date:"d E Y" }}
         </li>
         <li>
-            Игра: {{ gamemark.game }}
+            Игра: <a href="{% url 'games:game_detail' gamemark.game.id %}">{{ gamemark.game }}</a>
         </li>
       </ul>
         <p>{{ gamemark.comment }}</p>
