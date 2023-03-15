@@ -7,7 +7,8 @@
     <article>
       <ul>
         <li>
-            Автор: {{ gamemark.user }}
+            Автор:
+            <a href="{% url 'games:profile' gamemark.user.username %}">{{ gamemark.user }}</a>
         </li>
         <li>
             Дата публикации: {{ gamemark.pub_date|date:"d E Y" }}

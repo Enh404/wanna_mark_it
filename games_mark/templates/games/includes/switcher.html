@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.view_name == 'games:profile' %}active{% endif %}" href="{% url 'games:profile' profile %}">Оценки</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.view_name == 'games:profile_about' %}active{% endif %}" href="{% url 'games:profile_about' profile %}">About</a>
+    </li>
+  </ul>

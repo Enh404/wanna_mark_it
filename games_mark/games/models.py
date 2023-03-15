@@ -49,3 +49,12 @@ class GameMark(models.Model):
     
     def __str__(self):
         return f'{self.game.name}, {self.mark}'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    about = models.TextField(null=True, blank=True)
+    profile_img = models.ImageField(null=True, blank=True, upload_to='profile/')
+    
+    def __str__(self):
+        return self.user.username

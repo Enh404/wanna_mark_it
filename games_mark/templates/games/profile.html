@@ -1,41 +1,84 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
 
-{% block title %}Профайл пользователя {{ user }}{% endblock title %}
+{% block title %}Профайл пользователя {{ profile }}{% endblock title %}
 
 {% block content %}
-  
-        <h1>Все посты пользователя {{ user }}</h1>
-        <h3>Всего постов: {{ gamemarks_by_user.count }} </h3>
-    {% for gamemark in gamemarks_by_user %}
-        <article>
-          <ul>
-            <li>
-              Автор: {{ user }}
-            </li>
-            <li>
-              Дата публикации: {{ gamemark.pub_date|date:"d E Y" }} 
-            </li>
-            <li>
-              Игра: <a href="{% url 'games:game_detail' gamemark.game.id %}">{{ gamemark.game }}</a>
-            </li>
-            <li>
-              Категория: <a href="{% url 'games:category_gamemark' gamemark.game.category %}">{{ gamemark.game.category }}</a>
-            </li>
-          </ul>
-          <p>
-            {{ gamemark.comment }}
-          </p>
-          <p>
-            <b>Оценка: {{ gamemark.mark }}</b>
-          </p>
-          {% comment %} {% if post %}
-            <a href="{% url 'posts:post_detail' post.id %}">подробная информация </a>
-          {% endif %} {% endcomment %}
-        </article>       
-        {% comment %} {% if post.group %}
-          <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-        {% endif %} {% endcomment %}
-        {% if not forloop.lust %}<hr>{% endif %}
-  {% endfor %}  
-  {% comment %} {% include 'posts/includes/paginator.html' %} {% endcomment %}
+<div class="container emp-profile">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="profile-img">
+        
+        {% if user.profile.profile_img %}
+        {% thumbnail profile.profile_img "150x150" crop="center" upscale=True as im %}
+          <img src="{{ im.url }}">
+        {% endthumbnail %}
+        {% else %}
+          <img src="{% static 'img\profile.jpg' %}" height=120 width=192>
+        {% endif %}
+        
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="profile-head">
+        <h1>Профиль пользователя {{ profile }}</h1>
+        {% include 'games/includes/switcher.html' %}  
+      </div>
+    </div>
+    {% if request.user == profile.user %}
+    <div class="col-md-2">
+      <a href="{% url 'games:profile_edit' profile.id %}" class="btn btn-primary">Редактировать профиль</a>
+    </div>
+    {% endif %}
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <h5>Всего оценок: {{ gamemarks_by_user.count }} </h5>
+    </div>
+    <div class="col-md-8">
+      <div class="tab-content profile-tab" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          {% for gamemark in gamemarks_by_user %}
+          <article>
+                <ul>
+                  <li>
+                    Автор: {{ profile }}
+                  </li>
+                  <li>
+                    Дата публикации: {{ gamemark.pub_date|date:"d E Y" }} 
+                  </li>
+                  <li>
+                    Игра: <a href="{% url 'games:game_detail' gamemark.game.id %}">{{ gamemark.game }}</a>
+                  </li>
+                  <li>
+                    Категория: <a href="{% url 'games:category_gamemark' gamemark.game.category %}">{{ gamemark.game.category }}</a>
+                  </li>
+                </ul>
+                <p>
+                  {{ gamemark.comment }}
+                </p>
+                <p>
+                  <b>Оценка: {{ gamemark.mark }}</b>
+                </p>
+                {% comment %} {% if post %}
+                  <a href="{% url 'posts:post_detail' post.id %}">подробная информация </a>
+                {% endif %} {% endcomment %}
+          </article>       
+              {% comment %} {% if post.group %}
+                <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+              {% endif %} {% endcomment %}
+              {% if not forloop.lust %}<hr>{% endif %}
+              {% endfor %}  
+            {% comment %} {% include 'posts/includes/paginator.html' %} {% endcomment %}
+        </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="row">
+                <b>About: {{ profile.about }}</b>
+              </div>  
+            </div>    
+      </div>  
+    </div>
+  </div>
+</div>
 {% endblock content %}

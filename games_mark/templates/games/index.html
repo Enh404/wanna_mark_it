@@ -22,8 +22,13 @@
       </ul>
         <p>{{ gamemark.comment }}</p>
         <p>
-            <b>Оценка: {{ gamemark.mark }}</b>
+          <b>Оценка: {{ gamemark.mark }}</b>
         </p>
+        {% if request.user == gamemark.user%}
+        <p>  
+          <a href="{% url 'games:gamemark_edit' gamemark.id %}">Редактировать оценку</a>
+        </p>
+        {% endif %}
       {% if not forloop.lust %}<hr>{% endif %}
     </article>
     {% endfor %}
