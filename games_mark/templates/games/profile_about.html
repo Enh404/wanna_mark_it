@@ -24,9 +24,14 @@
         {% include 'games/includes/switcher.html' %}  
       </div>
     </div>
+    {% if request.user == profile.user %}
     <div class="col-md-2">
-      <a href="{% url 'games:profile_edit' profile.id %}" class="btn btn-primary">Редактировать профиль</a>
+      <a href="{% url 'games:profile_edit' profile.id %}" class="btn btn-dark" data-mdb-ripple-color="dark">
+        <span style="color: white; font-family: fantasy; font-size: 18px">Р<span style="color: #22c946; font-family: fantasy; font-size: 18px">едактировать</span>
+        <span style="color: white; font-family: fantasy; font-size: 18px">п<span style="color: #22c946; font-family: fantasy; font-size: 18px">рофиль</span>
+      </a>
     </div>
+    {% endif %}
   </div>
   <div class="row">
     <div class="col-md-2">

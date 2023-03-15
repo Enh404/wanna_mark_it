@@ -13,4 +13,5 @@ urlpatterns = [
     path('create/', views.gamemark_create, name='gamemark_create'),
     path('games/<int:gamemark_id>/edit/', views.gamemark_edit, name='gamemark_edit'),
     path('profile/<int:profile_id>/edit/', views.profile_edit, name='profile_edit'),
+    path('game_rating/', views.game_rating, name='game_rating'),
 ]

@@ -101,3 +101,13 @@ def profile_edit(request, profile_id):
         'form': form,
     }
     return render(request, 'games/profile_edit.html', context)
+
+
+def game_rating(request):
+    games = Game.objects.all()
+    gamemarks_list = GameMark.objects.values('game_id').annotate(avg = Avg('mark')).order_by('-avg')
+    context = {
+        'games': games,
+        'gamemarks_list': gamemarks_list,
+    }
+    return render(request, 'games/game_rating.html', context)

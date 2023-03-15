@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% comment %} {% load thumbnail %} {% endcomment %}
+{% load user_filters %}
+
+{% block title %}Рейтиг{{ post|truncatechars:30 }}{% endblock title %}
+
+{% block content %}
+<ol>
+{% for gamemark in gamemarks_list %}
+  {% for game in games %} 
+  {% if gamemark.game_id == game.id %}
+  <li>
+    <div class="row">
+      
+        <aside class="col-12 col-md-3">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              Название: {{ game.name }}
+            </li>
+            <li class="list-group-item">
+              Год выпуска: {{ game.year }}
+            </li>
+            <li class="list-group-item">
+              Категория: <a href="{% url 'games:category_gamemark' game.category %}">{{ game.category }}</a>
+            </li>
+            <li class="list-group-item">
+              Средняя оценка: {{ gamemark.avg }}
+            </li>
+          </ul>
+        </aside>
+      
+    </div>
+  </li>
+  {% endif %}
+  {% endfor %}
+{% endfor %}
+</ol>
+{% endblock content %}
