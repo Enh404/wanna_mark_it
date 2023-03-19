@@ -55,7 +55,7 @@
                     Игра: <a href="{% url 'games:game_detail' gamemark.game.id %}">{{ gamemark.game }}</a>
                   </li>
                   <li>
-                    Категория: <a href="{% url 'games:category_gamemark' gamemark.game.category %}">{{ gamemark.game.category }}</a>
+                    Категория: <a href="{% url 'games:category_gamemark' gamemark.game.category.slug %}">{{ gamemark.game.category }}</a>
                   </li>
                 </ul>
                 <p>

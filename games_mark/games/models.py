@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+from achievements.models import Achievement
+
 
 User = get_user_model()
 
@@ -55,6 +57,10 @@ class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     about = models.TextField(null=True, blank=True)
     profile_img = models.ImageField(null=True, blank=True, upload_to='profile/')
+    achievements = models.ManyToManyField(
+        Achievement,
+        related_name='profiles',
+    )
     
     def __str__(self):
         return self.user.username

@@ -6,7 +6,7 @@
         <img src="{% static 'img/wlogo.png' %}" width="51" height="51" class="d-inline-block align-top" alt="">
         <span style="color: white; font-family: fantasy; font-size: 35px">W<span style="color: #22c946; font-family: fantasy; font-size: 35px">ANNA_MARK_IT</a>
       </a>
-
+      {% with request.resolver_match.view_name as view_name %}
       <ul class="nav nav-pills">
         <li class="nav-item"> 
           <a class="nav-link {% if view_name  == 'games:game_rating' %}active{% endif %}" 
@@ -15,7 +15,6 @@
             <span style="color: white; font-family: fantasy; font-size: 20px">R<span style="color: #22c946; font-family: fantasy; font-size: 20px">ATING
           </a>
         </li>
-        {% with request.resolver_match.view_name as view_name %}
         {% if request.user.is_authenticated %}
         <li class="nav-item"> 
           <a class="nav-link {% if view_name  == 'games:gamemark_create' %}active{% endif %}" 

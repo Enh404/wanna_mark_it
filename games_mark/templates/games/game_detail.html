@@ -16,7 +16,7 @@
               Год выпуска: {{ game.year }}
             </li>
             <li class="list-group-item">
-              Категория: <a href="{% url 'games:category_gamemark' game.category %}">{{ game.category }}</a>
+              Категория: <a href="{% url 'games:category_gamemark' game.category.slug %}">{{ game.category }}</a>
             </li>
             <li class="list-group-item">
               Средняя оценка: {{ gamemarks_by_game }}

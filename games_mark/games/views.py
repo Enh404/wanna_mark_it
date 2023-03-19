@@ -61,12 +61,17 @@ def profile_about(request, username):
 @login_required
 def gamemark_create(request):
     form = GameMarkForm(request.POST or None)
+    gamemarks_by_user = GameMark.objects.filter(user=request.user.id)
     if form.is_valid():
         gamemark = form.save(commit=False)
         gamemark.user = request.user
         gamemark.save()
-        return redirect('games:profile', request.user.username)
+        if gamemarks_by_user.count() == 1:
+            return redirect('achievements:achievement_received', request.user.id)
+        else:
+            return redirect('games:profile', request.user.username)
     context = {
+        'gamemarks_by_user': gamemarks_by_user,
         'form': form,
     }
     return render(request, 'games/create_gamemark.html', context)
