@@ -6,8 +6,10 @@
 
 {% block content %}
   
-      <div class="row">
-        <aside class="col-12 col-md-3">
+      <div class="row" style="border: 2px solid black; border-radius: 40px 10px;">
+        <aside class="col-md-1">
+        </aside>
+        <aside class="col-md-3">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               Название: {{ game.name }} 
@@ -18,16 +20,30 @@
             <li class="list-group-item">
               Категория: <a href="{% url 'games:category_gamemark' game.category.slug %}">{{ game.category }}</a>
             </li>
-            <li class="list-group-item">
-              Средняя оценка: {{ gamemarks_by_game }}
-            </li>
+        </aside>
+        <aside class="col-md-5">
+        </aside>
+        <aside class="col-md-2">
+              <div style="margin-top: 10px; 
+              padding: 1px; 
+              border: 2px solid black; 
+              background-color: {% if gamemarks_by_game <= 2 %} red {% elif 2 < gamemarks_by_game and gamemarks_by_game <= 5 %} orange {% elif 5 < gamemarks_by_game and gamemarks_by_game <= 8 %} yellow {% else %} #22c946 {% endif %}; 
+              text-align: center; 
+              font-family: fantasy; 
+              font-size: 20px">
+                <b>
+                  AVG<br>
+                  <span style='font-size: 45px'>{{ gamemarks_by_game }}</span>
+                </b>
+              </div>
+        </aside>
             {% comment %} <li class="list-group-item">
               <a href="{% url 'posts:profile' post.author.username %}">
                 все посты пользователя
               </a>
             </li> {% endcomment %}
           </ul>
-        </aside>
+        
       </div>
   
 {% endblock content %}

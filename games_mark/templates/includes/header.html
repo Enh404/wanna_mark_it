@@ -15,6 +15,13 @@
             <span style="color: white; font-family: fantasy; font-size: 20px">R<span style="color: #22c946; font-family: fantasy; font-size: 20px">ATING
           </a>
         </li>
+        <li class="nav-item"> 
+          <a class="nav-link {% if view_name  == 'about:about_project' %}active{% endif %}" 
+            href="{% url 'about:about_project' %}"
+          >
+            <span style="color: white; font-family: fantasy; font-size: 20px">A<span style="color: #22c946; font-family: fantasy; font-size: 20px">BOUT
+          </a>
+        </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item"> 
           <a class="nav-link {% if view_name  == 'games:gamemark_create' %}active{% endif %}" 
@@ -22,6 +29,14 @@
           >
               <span style="color: white; font-family: fantasy; font-size: 20px">N<span style="color: #22c946; font-family: fantasy; font-size: 20px">EW
               <span style="color: white; font-family: fantasy; font-size: 20px">M<span style="color: #22c946; font-family: fantasy; font-size: 20px">ARK
+          </a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link {% if view_name  == 'games:profile' or view_name  == 'games:profile_about' %}active{% endif %}" 
+            href="{% url 'games:profile' request.user.username %}"
+          >
+              <span style="color: white; font-family: fantasy; font-size: 20px">M<span style="color: #22c946; font-family: fantasy; font-size: 20px">Y
+              <span style="color: white; font-family: fantasy; font-size: 20px">P<span style="color: #22c946; font-family: fantasy; font-size: 20px">ROFILE
           </a>
         </li>
         <li class="nav-item"> 

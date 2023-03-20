@@ -2,17 +2,22 @@
 {% comment %} {% load thumbnail %} {% endcomment %}
 {% load user_filters %}
 
-{% block title %}Рейтиг{{ post|truncatechars:30 }}{% endblock title %}
+{% block title %}Рейтинг{% endblock title %}
 
 {% block content %}
 <ol>
 {% for gamemark in gamemarks_list %}
+
+
   {% for game in games %} 
   {% if gamemark.game_id == game.id %}
-  <li>
-    <div class="row">
-      
-        <aside class="col-12 col-md-3">
+  
+  <div class="row" style='border: 2px solid black; border-radius: 10px;'>
+    <aside class="col-md-1">
+    <li style='margin-top: 25px; margin-left: 70px; font-family: fantasy; font-size: 45px'>
+    </li>
+    </aside>
+        <aside class="col-md-4">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               Название: {{ game.name }}
@@ -23,16 +28,33 @@
             <li class="list-group-item">
               Категория: <a href="{% url 'games:category_gamemark' game.category.slug %}">{{ game.category }}</a>
             </li>
-            <li class="list-group-item">
-              Средняя оценка: {{ gamemark.avg }}
-            </li>
           </ul>
         </aside>
+        <aside class="col-md-5">
+        </aside>
+        <aside class="col-md-2">
+          <div style="margin-top: 10px; 
+          padding: 1px; 
+          border: 2px solid black; 
+          background-color: {% if gamemark.avg <= 2 %} red {% elif 2 < gamemark.avg and gamemark.avg <= 5 %} orange {% elif 5 < gamemark.avg and gamemark.avg <= 8 %} yellow {% else %} #22c946 {% endif %}; 
+          text-align: center; 
+          font-family: fantasy; 
+          font-size: 20px">
+            <b>
+              AVG<br>
+              <span style='font-size: 45px'>{{ gamemark.avg }}</span>
+            </b>
+          </div>
+        </aside>
       
-    </div>
-  </li>
+</div>
+<p>
+</p>
+
   {% endif %}
   {% endfor %}
+
+
 {% endfor %}
 </ol>
 {% endblock content %}

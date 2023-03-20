@@ -26,14 +26,15 @@ SECRET_KEY = 'django-insecure-8ca+87#j$!ot6c3vku2@_n&k*!-c1_rx!pl1rqe0^a%l05tbu)
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'www.SweetMan.pythonanywhere.com',
-    'SweetMan.pythonanywhere.com',
+    # 'www.SweetMan.pythonanywhere.com',
+    # 'SweetMan.pythonanywhere.com',
 ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'about.apps.AboutConfig',
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
     'games.apps.GamesConfig',

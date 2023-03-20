@@ -4,7 +4,8 @@
 {% block title %}Лента оценок{% endblock title %}
   {% block content %}
     {% for gamemark in gamemark_list %}
-    <article>
+    <div style='border: 2px solid black; border-radius: 40px 10px;'>
+    <article style='margin-left: 50px; margin-top: 10px'>
       <ul>
         <li>
             Автор: 
@@ -29,8 +30,11 @@
           <a href="{% url 'games:gamemark_edit' gamemark.id %}">Редактировать оценку</a>
         </p>
         {% endif %}
-      {% if not forloop.lust %}<hr>{% endif %}
+      {% comment %} {% if not forloop.lust %}<hr>{% endif %} {% endcomment %}
     </article>
+    </div>
+    <p>
+    </p>
     {% endfor %}
   {% endblock content %}
 

@@ -43,7 +43,8 @@
       <div class="tab-content profile-tab" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
           {% for gamemark in gamemarks_by_user %}
-          <article>
+          <div style='border: 2px solid black; border-radius: 40px 10px;'>
+            <article style='margin-left: 50px; margin-top: 10px'>
                 <ul>
                   <li>
                     Автор: {{ profile }}
@@ -64,14 +65,11 @@
                 <p>
                   <b>Оценка: {{ gamemark.mark }}</b>
                 </p>
-                {% comment %} {% if post %}
-                  <a href="{% url 'posts:post_detail' post.id %}">подробная информация </a>
-                {% endif %} {% endcomment %}
-          </article>       
-              {% comment %} {% if post.group %}
-                <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-              {% endif %} {% endcomment %}
-              {% if not forloop.lust %}<hr>{% endif %}
+            </article>
+          </div>
+          <p>
+          </p>
+              {% comment %} {% if not forloop.lust %}<hr>{% endif %} {% endcomment %}
               {% endfor %}  
             {% comment %} {% include 'posts/includes/paginator.html' %} {% endcomment %}
         </div>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from django.contrib.auth.decorators import login_required
 
 from games.models import User, Game, Category, GameMark, Profile
@@ -66,8 +66,16 @@ def gamemark_create(request):
         gamemark = form.save(commit=False)
         gamemark.user = request.user
         gamemark.save()
+        game_from_data = form.cleaned_data.get('game')
+        game = get_object_or_404(Game, name=game_from_data)
         if gamemarks_by_user.count() == 1:
-            return redirect('achievements:achievement_received', request.user.id)
+            return redirect('achievements:first_achievement_received', request.user.id)
+        elif gamemarks_by_user.filter(game__category=game.category).count() == 2:
+            return redirect('achievements:achievement_received', request.user.id, game.category.slug, 2)
+        elif gamemarks_by_user.filter(game__category=game.category).count() == 5:
+            return redirect('achievements:achievement_received', request.user.id, game.category.slug, 5)
+        elif gamemarks_by_user.filter(game__category=game.category).count() == 10:
+            return redirect('achievements:achievement_received', request.user.id, game.category.slug, 10)
         else:
             return redirect('games:profile', request.user.username)
     context = {

@@ -60,6 +60,7 @@ class Profile(models.Model):
     achievements = models.ManyToManyField(
         Achievement,
         related_name='profiles',
+        blank=True,
     )
     
     def __str__(self):
