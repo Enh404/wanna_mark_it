@@ -3,34 +3,43 @@
 
 {% block title %}Лента оценок{% endblock title %}
   {% block content %}
+  <h1 style="font-family: fantasy; text-align: center;">Лента оценок</h1>
     {% for gamemark in gamemark_list %}
     <div style='border: 2px solid black; border-radius: 40px 10px;'>
     <article style='margin-left: 50px; margin-top: 10px'>
       <ul>
         <li>
-            Автор: 
-            <a href="{% url 'games:profile' gamemark.user.username %}">{{ gamemark.user }}</a>
+          <span>Пользователь:</span>
+          <a href="{% url 'games:profile' gamemark.user.username %}">{{ gamemark.user }}</a>
         </li>
         <li>
-            Дата публикации: {{ gamemark.pub_date|date:"d E Y" }}
+          <span>Дата публикации:</span> 
+          <span>{{ gamemark.pub_date|date:"d E Y" }}</span>
         </li>
         <li>
-            Игра: <a href="{% url 'games:game_detail' gamemark.game.id %}">{{ gamemark.game }}</a>
+          <span>Игра:</span> 
+          <a href="{% url 'games:game_detail' gamemark.game.id %}">{{ gamemark.game }}</a>
         </li>
         <li>
-          Категория: <a href="{% url 'games:category_gamemark' gamemark.game.category.slug %}">{{ gamemark.game.category }}</a>
+          <span>Категория:</span> 
+          <a href="{% url 'games:category_gamemark' gamemark.game.category.slug %}">{{ gamemark.game.category }}</a>
+        </li>
+        <li>
+          <p>
+            <span>Комментарий:</span> 
+            <span>{{ gamemark.comment }}</span>
+          </p>
         </li>
       </ul>
-        <p>{{ gamemark.comment }}</p>
         <p>
-          <b>Оценка: {{ gamemark.mark }}</b>
+          <span style="font-size: 20px">Оценка:</span> 
+          <span style="color: {% if gamemark.mark <= 2 %} red {% elif 2 < gamemark.mark and gamemark.mark <= 5 %} orange {% elif 5 < gamemark.mark and gamemark.mark <= 8 %} yellow {% else %} #22c946 {% endif %};; font-family: fantasy; font-size: 20px">{{ gamemark.mark }}</span> 
         </p>
         {% if request.user == gamemark.user%}
         <p>  
           <a href="{% url 'games:gamemark_edit' gamemark.id %}">Редактировать оценку</a>
         </p>
         {% endif %}
-      {% comment %} {% if not forloop.lust %}<hr>{% endif %} {% endcomment %}
     </article>
     </div>
     <p>

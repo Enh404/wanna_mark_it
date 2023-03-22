@@ -36,7 +36,7 @@ class GameMark(models.Model):
     game = models.ForeignKey(
         Game, 
         on_delete=models.CASCADE,
-        related_name='gamemarks'
+        related_name='gamemarks',
     )
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='gamemarks')
@@ -48,6 +48,10 @@ class GameMark(models.Model):
     
     class Meta:
         ordering = ['-pub_date']
+        constraints = [
+            models.UniqueConstraint(fields=['game', 'user'],
+                                    name='unique game for user')
+        ]
     
     def __str__(self):
         return f'{self.game.name}, {self.mark}'

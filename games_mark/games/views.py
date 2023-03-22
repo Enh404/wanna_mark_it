@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Avg, Count
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 
 from games.models import User, Game, Category, GameMark, Profile
 from games.forms import GameMarkForm, ProfileForm
@@ -38,10 +39,12 @@ def profile(request, username):
 
 def game_detail(request, game_id):
     game = get_object_or_404(Game, id=game_id)
-    gamemarks_by_game = GameMark.objects.filter(game=game).aggregate(Avg('mark'))
+    gamemarks_by_game = GameMark.objects.filter(game=game)
+    avg_mark = gamemarks_by_game.aggregate(Avg('mark'))
     context = {
         'game': game,
-        'gamemarks_by_game': gamemarks_by_game['mark__avg'],
+        'gamemarks_by_game': gamemarks_by_game,
+        'avg_mark': avg_mark['mark__avg'],
     }
     return render(request, 'games/game_detail.html', context)
 
@@ -65,19 +68,22 @@ def gamemark_create(request):
     if form.is_valid():
         gamemark = form.save(commit=False)
         gamemark.user = request.user
-        gamemark.save()
-        game_from_data = form.cleaned_data.get('game')
-        game = get_object_or_404(Game, name=game_from_data)
-        if gamemarks_by_user.count() == 1:
-            return redirect('achievements:first_achievement_received', request.user.id)
-        elif gamemarks_by_user.filter(game__category=game.category).count() == 2:
-            return redirect('achievements:achievement_received', request.user.id, game.category.slug, 2)
-        elif gamemarks_by_user.filter(game__category=game.category).count() == 5:
-            return redirect('achievements:achievement_received', request.user.id, game.category.slug, 5)
-        elif gamemarks_by_user.filter(game__category=game.category).count() == 10:
-            return redirect('achievements:achievement_received', request.user.id, game.category.slug, 10)
-        else:
-            return redirect('games:profile', request.user.username)
+        try:
+            gamemark.save()
+            game_from_data = form.cleaned_data.get('game')
+            game = get_object_or_404(Game, name=game_from_data)
+            if gamemarks_by_user.count() == 1:
+                return redirect('achievements:first_achievement_received', request.user.id)
+            elif gamemarks_by_user.filter(game__category=game.category).count() == 2:
+                return redirect('achievements:achievement_received', request.user.id, game.category.slug, 2)
+            elif gamemarks_by_user.filter(game__category=game.category).count() == 5:
+                return redirect('achievements:achievement_received', request.user.id, game.category.slug, 5)
+            elif gamemarks_by_user.filter(game__category=game.category).count() == 10:
+                return redirect('achievements:achievement_received', request.user.id, game.category.slug, 10)
+            else:
+                return redirect('games:profile', request.user.username)
+        except IntegrityError:
+            form.add_error(None, 'Вы уже ставили оценку этой игре')
     context = {
         'gamemarks_by_user': gamemarks_by_user,
         'form': form,

@@ -1,5 +1,6 @@
 from django import forms
-from games.models import GameMark, Profile
+from django.shortcuts import get_object_or_404
+from games.models import Game, GameMark, Profile
 
 
 class GameMarkForm(forms.ModelForm):
@@ -7,11 +8,11 @@ class GameMarkForm(forms.ModelForm):
         model = GameMark
         fields = ('comment', 'game', 'mark')
 
-        def clean_text(self):
-            data = self.cleaned_data['comment']
-            if data == '':
-                raise forms.ValidationError('Обязательное для заполнения поле')
-            return data
+    def clean_comment(self):
+        data = self.cleaned_data['comment']
+        if data == '':
+            raise forms.ValidationError('Обязательное для заполнения поле')
+        return data
 
 
 class ProfileForm(forms.ModelForm):

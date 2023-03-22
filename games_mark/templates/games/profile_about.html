@@ -2,7 +2,7 @@
 {% load static %}
 {% load thumbnail %}
 
-{% block title %}Профайл пользователя {{ profile }}{% endblock title %}
+{% block title %}Профиль пользователя {{ profile }}{% endblock title %}
 
 {% block content %}
 <div class="container emp-profile">
@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-8">
       <div class="profile-head">
-        <h1>Профиль пользователя {{ profile }}</h1>
+        <h1 style="font-family: fantasy; text-align: left;">Профиль пользователя {{ profile }}</h1>
         {% include 'games/includes/switcher.html' %}  
       </div>
     </div>
@@ -41,9 +41,26 @@
       <div class="tab-content profile-tab" id="myTabContent">
             <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <div class="row">
-                <b>{{ profile.about }}</b>
-                <b>Аchievements: {% for achievement in profile.achievements.all %}{{ achievement }}{% endfor %}</b>
-              </div>  
+                <span style="font-family: fantasy; text-align: left;">About me:</span>
+                <p>
+                </p>
+                <span>{{ profile.about }}</span>
+                <p>
+                </p>
+              
+                <span style="font-family: fantasy; text-align: left;">Аchievements:</span>
+                <p>
+                </p>
+              </div>
+                <ui>
+                  {% for achievement in profile.achievements.all %}
+                  <div style='border: 2px solid black; border-radius: 10px; margin-right: 100px;' title="{{achievement.requirement}}">
+                      <span style="margin-left: 15px" >{{achievement}}</span>
+                  </div>
+                  <p>
+                  </p>
+                  {% endfor %} 
+                <ui>
             </div>    
       </div>  
     </div>
