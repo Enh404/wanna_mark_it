@@ -4,7 +4,7 @@
 {% block title %}Лента оценок{% endblock title %}
   {% block content %}
   <h1 style="font-family: fantasy; text-align: center;">Лента оценок</h1>
-    {% for gamemark in gamemark_list %}
+    {% for gamemark in page_obj  %}
     <div style='border: 2px solid black; border-radius: 40px 10px;'>
     <article style='margin-left: 50px; margin-top: 10px'>
       <ul>
@@ -45,5 +45,6 @@
     <p>
     </p>
     {% endfor %}
+    {% include 'games/includes/paginator.html' %}
   {% endblock content %}
 

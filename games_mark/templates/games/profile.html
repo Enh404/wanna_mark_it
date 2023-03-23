@@ -2,7 +2,7 @@
 {% load static %}
 {% load thumbnail %}
 
-{% block title %}Профайл пользователя {{ profile }}{% endblock title %}
+{% block title %}Профиль пользователя {{ profile }}{% endblock title %}
 
 {% block content %}
 <div class="container emp-profile">
@@ -42,7 +42,7 @@
     <div class="col-md-8">
       <div class="tab-content profile-tab" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-          {% for gamemark in gamemarks_by_user %}
+          {% for gamemark in page_obj %}
           <div style='border: 2px solid black; border-radius: 40px 10px;'>
             <article style='margin-left: 50px; margin-top: 10px'>
                 <ul>
@@ -70,15 +70,10 @@
           <p>
           </p>
               {% comment %} {% if not forloop.lust %}<hr>{% endif %} {% endcomment %}
-              {% endfor %}  
+              {% endfor %}
+              {% include 'games/includes/paginator.html' %}
             {% comment %} {% include 'posts/includes/paginator.html' %} {% endcomment %}
-        </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-              <div class="row">
-                <b>About: {{ profile.about }}</b>
-              </div>  
-            </div>    
-      </div>  
+        
     </div>
   </div>
 </div>

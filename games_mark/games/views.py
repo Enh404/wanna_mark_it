@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Avg, Count
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.core.paginator import Paginator
 
 from games.models import User, Game, Category, GameMark, Profile
 from games.forms import GameMarkForm, ProfileForm
@@ -9,8 +10,11 @@ from games.forms import GameMarkForm, ProfileForm
 
 def index(request):
     gamemark_list = GameMark.objects.all()
+    paginator = Paginator(gamemark_list, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'gamemark_list': gamemark_list,
+        'page_obj': page_obj,
     }
     return render(request, 'games/index.html', context)
 
@@ -18,9 +22,12 @@ def index(request):
 def category_gamemark(request, slug):
     category = get_object_or_404(Category, slug=slug)
     gamemark_list = GameMark.objects.filter(game__category=category)
+    paginator = Paginator(gamemark_list, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
         'category': category,
-        'gamemark_list': gamemark_list,
+        'page_obj': page_obj,
     }
     return render(request, 'games/category_gamemark.html', context)
 
@@ -29,10 +36,14 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user=user)
     gamemarks_by_user = GameMark.objects.filter(user=user)
+    paginator = Paginator(gamemarks_by_user, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
         'user': user,
         'profile': profile,
         'gamemarks_by_user': gamemarks_by_user,
+        'page_obj': page_obj,
     }
     return render(request, 'games/profile.html', context)
 
@@ -40,10 +51,13 @@ def profile(request, username):
 def game_detail(request, game_id):
     game = get_object_or_404(Game, id=game_id)
     gamemarks_by_game = GameMark.objects.filter(game=game)
+    paginator = Paginator(gamemarks_by_game, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     avg_mark = gamemarks_by_game.aggregate(Avg('mark'))
     context = {
         'game': game,
-        'gamemarks_by_game': gamemarks_by_game,
+        'page_obj': page_obj,
         'avg_mark': avg_mark['mark__avg'],
     }
     return render(request, 'games/game_detail.html', context)
@@ -124,7 +138,7 @@ def profile_edit(request, profile_id):
 
 def game_rating(request):
     games = Game.objects.all()
-    gamemarks_list = GameMark.objects.values('game_id').annotate(avg = Avg('mark')).order_by('-avg')
+    gamemarks_list = GameMark.objects.values('game_id').annotate(avg = Avg('mark')).order_by('-avg')[:10]
     context = {
         'games': games,
         'gamemarks_list': gamemarks_list,

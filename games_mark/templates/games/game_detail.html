@@ -47,7 +47,7 @@
         
       </div>
 <h1 style="font-family: fantasy; text-align: center;">Последние оценки об игре</h1>
-{% for gamemark in gamemarks_by_game %}
+{% for gamemark in page_obj %}
     <div style='border: 2px solid black; border-radius: 40px 10px;'>
     <article style='margin-left: 50px; margin-top: 10px'>
       <ul>
@@ -80,5 +80,5 @@
     <p>
     </p>
 {% endfor %}
-  
+{% include 'games/includes/paginator.html' %}  
 {% endblock content %}

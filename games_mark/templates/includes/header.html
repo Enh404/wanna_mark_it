@@ -54,9 +54,9 @@
             <span style="color: white; font-family: fantasy; font-size: 20px">E<span style="color: red; font-family: fantasy; font-size: 20px">XIT</a>
           </a>
         </li>
-        <li>
+        {% comment %} <li>
           Пользователь: {{ request.user.username }}
-        </li>
+        </li> {% endcomment %}
         {% else %}
         <li class="nav-item"> 
           <a class="nav-link {% if view_name  == 'users:login' %}active{% endif %}" 
