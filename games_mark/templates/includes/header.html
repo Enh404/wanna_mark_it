@@ -12,14 +12,14 @@
           <a class="nav-link {% if view_name  == 'games:game_rating' %}active{% endif %}" 
             href="{% url 'games:game_rating' %}"
           >
-            <span style="color: white; font-family: fantasy; font-size: 20px">R<span style="color: #22c946; font-family: fantasy; font-size: 20px">ATING
+            <span style="color: white; font-family: fantasy; font-size: 20px">Т<span style="color: #22c946; font-family: fantasy; font-size: 20px">ОП 10
           </a>
         </li>
         <li class="nav-item"> 
           <a class="nav-link {% if view_name  == 'about:about_project' %}active{% endif %}" 
             href="{% url 'about:about_project' %}"
           >
-            <span style="color: white; font-family: fantasy; font-size: 20px">A<span style="color: #22c946; font-family: fantasy; font-size: 20px">BOUT
+            <span style="color: white; font-family: fantasy; font-size: 20px">О<span style="color: #22c946; font-family: fantasy; font-size: 20px"> САЙТЕ
           </a>
         </li>
         {% if request.user.is_authenticated %}
@@ -27,31 +27,31 @@
           <a class="nav-link {% if view_name  == 'games:gamemark_create' %}active{% endif %}" 
             href="{% url 'games:gamemark_create' %}"
           >
-              <span style="color: white; font-family: fantasy; font-size: 20px">N<span style="color: #22c946; font-family: fantasy; font-size: 20px">EW
-              <span style="color: white; font-family: fantasy; font-size: 20px">M<span style="color: #22c946; font-family: fantasy; font-size: 20px">ARK
+              <span style="color: white; font-family: fantasy; font-size: 20px">Н<span style="color: #22c946; font-family: fantasy; font-size: 20px">ОВАЯ
+              <span style="color: white; font-family: fantasy; font-size: 20px">О<span style="color: #22c946; font-family: fantasy; font-size: 20px">ЦЕНКА
           </a>
         </li>
         <li class="nav-item"> 
-          <a class="nav-link {% if view_name  == 'games:profile' or view_name  == 'games:profile_about' %}active{% endif %}" 
+          <a class="nav-link {% if view_name  == 'games:profile' and request.user.username == profile.user.username or view_name  == 'games:profile_about' and request.user.username == profile.user.username %}active{% endif %}" 
             href="{% url 'games:profile' request.user.username %}"
           >
-              <span style="color: white; font-family: fantasy; font-size: 20px">M<span style="color: #22c946; font-family: fantasy; font-size: 20px">Y
-              <span style="color: white; font-family: fantasy; font-size: 20px">P<span style="color: #22c946; font-family: fantasy; font-size: 20px">ROFILE
+              <span style="color: white; font-family: fantasy; font-size: 20px">М<span style="color: #22c946; font-family: fantasy; font-size: 20px">ОЙ
+              <span style="color: white; font-family: fantasy; font-size: 20px">П<span style="color: #22c946; font-family: fantasy; font-size: 20px">РОФИЛЬ
           </a>
         </li>
         <li class="nav-item"> 
           <a class="nav-link {% if view_name  == 'users:password_reset' %}active{% endif %}" 
              href="{% url 'users:password_reset' %}"
           >
-            <span style="color: white; font-family: fantasy; font-size: 20px">C<span style="color: #22c946; font-family: fantasy; font-size: 20px">HANGE
-            <span style="color: white; font-family: fantasy; font-size: 20px">P<span style="color: #22c946; font-family: fantasy; font-size: 20px">ASSWORD
+            <span style="color: white; font-family: fantasy; font-size: 20px">С<span style="color: #22c946; font-family: fantasy; font-size: 20px">МЕНИТЬ
+            <span style="color: white; font-family: fantasy; font-size: 20px">П<span style="color: #22c946; font-family: fantasy; font-size: 20px">АРОЛЬ
           </a>
         </li>
         <li class="nav-item"> 
           <a class="nav-link {% if view_name  == 'users:logout' %}active{% endif %}" 
              href="{% url 'users:logout' %}"
           >
-            <span style="color: white; font-family: fantasy; font-size: 20px">E<span style="color: red; font-family: fantasy; font-size: 20px">XIT</a>
+            <span style="color: white; font-family: fantasy; font-size: 20px">В<span style="color: red; font-family: fantasy; font-size: 20px">ЫЙТИ</a>
           </a>
         </li>
         {% comment %} <li>
@@ -62,14 +62,14 @@
           <a class="nav-link {% if view_name  == 'users:login' %}active{% endif %}" 
              href="{% url 'users:login' %}"
           >
-          <span style="color: white; font-family: fantasy; font-size: 20px">L<span style="color: #22c946; font-family: fantasy; font-size: 20px">OGIN</a>
+          <span style="color: white; font-family: fantasy; font-size: 20px">В<span style="color: #22c946; font-family: fantasy; font-size: 20px">ОЙТИ</a>
           </a>
         </li>
         <li class="nav-item"> 
           <a class="nav-link {% if view_name  == 'users:signup' %}active{% endif %}" 
              href="{% url 'users:signup' %}"
           >
-          <span style="color: white; font-family: fantasy; font-size: 20px">S<span style="color: #22c946; font-family: fantasy; font-size: 20px">IGNUP</a>
+          <span style="color: white; font-family: fantasy; font-size: 20px">З<span style="color: #22c946; font-family: fantasy; font-size: 20px">АРЕГИСТРИРОВАТЬСЯ</a>
           </a>
         </li>
         {% endif %}

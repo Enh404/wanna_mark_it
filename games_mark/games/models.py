@@ -35,11 +35,12 @@ class Game(models.Model):
         ordering = ['name']
 
 class GameMark(models.Model):
-    comment = models.TextField()
+    comment = models.TextField(verbose_name='Комментарий')
     game = models.ForeignKey(
         Game, 
         on_delete=models.CASCADE,
         related_name='gamemarks',
+        verbose_name='Игра',
     )
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='gamemarks')

@@ -2,7 +2,7 @@
 {% comment %} {% load thumbnail %} {% endcomment %}
 {% load user_filters %}
 
-{% block title %}Пост {{ post|truncatechars:30 }}{% endblock title %}
+{% block title %}Оценки игры {{ game.name }}{% endblock title %}
 
 {% block content %}
   
@@ -33,7 +33,7 @@
               font-size: 20px">
                 <b>
                   AVG<br>
-                  <span style='font-size: 45px'>{{ avg_mark }}</span>
+                  <span style='font-size: 45px'>{{ avg_mark|floatformat }}</span>
                 </b>
               </div>
         </aside>
@@ -46,7 +46,7 @@
           
         
       </div>
-<h1 style="font-family: fantasy; text-align: center;">Последние оценки об игре</h1>
+<h1 style="font-family: fantasy; text-align: center;">Последние оценки об игре {{ game.name }}</h1>
 {% for gamemark in page_obj %}
     <div style='border: 2px solid black; border-radius: 40px 10px;'>
     <article style='margin-left: 50px; margin-top: 10px'>
