@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Достижение{% endblock %}
 {% block content %}
 <div class="row justify-content-center">
   <div class="col-md-8 p-5">
     <div class="card">
       <div class="card-header">
-        Поздравляем, {{ profile }}!
+        <h3 style="font-family: fantasy; text-align: left;">Поздравляем, {{ profile }}!</h3>
       </div>
-      <div class="card-body">
+      <div class="card-body" style="text-align: center;">
         <p>
-          Вами получено достижение {{achievement.name}}
+          Вами получено достижение <span style="font-family: fantasy; font-size: 18px">{{achievement.name}}</span>
         </p>
+        <div class="ach-img" >
+          <img src="{% static 'img\ach.jpeg' %}" style="border: 1px solid black;" height=225 width=450>
+        </div>
       </div>
     </div>
   </div>

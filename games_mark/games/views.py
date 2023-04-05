@@ -112,8 +112,11 @@ def gamemark_edit(request, gamemark_id):
         return redirect('games:profile', request.user.username)
     form = GameMarkForm(request.POST or None, instance=gamemark)
     if form.is_valid():
-        form.save()
-        return redirect('games:profile', request.user.username)
+        try:
+            form.save()
+            return redirect('games:profile', request.user.username)
+        except IntegrityError:
+            form.add_error(None, 'Вы уже ставили оценку этой игре')
     context = {
         'is_edit': True,
         'form': form,

@@ -1,10 +1,10 @@
 from django import forms
 from django.shortcuts import get_object_or_404
-from games.models import Game, GameMark, Profile
+from games.models import Game, GameMark, Profile, Category
 
 
 class GameMarkForm(forms.ModelForm):
-    my_field_choices = (
+    marks = (
         ('1', '1'),
         ('2', '2'),
         ('3', '3'),
@@ -16,7 +16,7 @@ class GameMarkForm(forms.ModelForm):
         ('9', '9'),
         ('10', '10'),
     )
-    mark = forms.ChoiceField(choices=my_field_choices, label='Оценка')
+    mark = forms.ChoiceField(choices=marks, label='Оценка')
     class Meta:
         model = GameMark
         fields = ('game', 'comment', 'mark')

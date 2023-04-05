@@ -8,13 +8,13 @@
 <div class="container emp-profile">
   <div class="row">
     <div class="col-md-2">
-      <div class="profile-img">
+      <div class="profile-img" style="text-align: center;">
         {% if user.profile.profile_img %}
         {% thumbnail profile.profile_img "150x150" crop="center" upscale=True as im %}
-          <img src="{{ im.url }}">
+          <img src="{{ im.url }}" style="border: 1px solid black;">
         {% endthumbnail %}
         {% else %}
-          <img src="{% static 'img\profile.jpg' %}" height=120 width=192>
+          <img src="{% static 'img\profile.jpg' %}" style="border: 1px solid black;" height=120 width=180>
         {% endif %}
       </div>
     </div>
@@ -35,7 +35,7 @@
   </div>
   <div class="row">
     <div class="col-md-2">
-      <h5>Всего оценок: {{ gamemarks_by_user.count }} </h5>
+      <h5 style="text-align: center;">Всего оценок: {{ gamemarks_by_user.count }} </h5>
     </div>
     <div class="col-md-8">
       <div class="tab-content profile-tab" id="myTabContent">
